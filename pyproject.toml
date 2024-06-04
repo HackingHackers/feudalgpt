@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "feudalgpt"
+dynamic = ["version"]
+description = 'A multi-agent ChatGPT framework that emulates a feudal system'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "HackingHackers", email = "52874216+HackingHackers@users.noreply.github.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+]
+
+[project.urls]
+Documentation = "https://github.com/HackingHackers/feudalgpt#readme"
+Issues = "https://github.com/HackingHackers/feudalgpt/issues"
+Source = "https://github.com/HackingHackers/feudalgpt"
+
+[project.scripts]
+feudalgpt = "feudalgpt.cli:feudalgpt"
+
+[tool.hatch.version]
+path = "src/feudalgpt/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/feudalgpt tests}"
+
+[tool.coverage.run]
+source_pkgs = ["feudalgpt", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/feudalgpt/__about__.py",
+]
+
+[tool.coverage.paths]
+feudalgpt = ["src/feudalgpt", "*/feudalgpt/src/feudalgpt"]
+tests = ["tests", "*/feudalgpt/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
