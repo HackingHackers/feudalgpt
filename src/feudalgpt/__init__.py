@@ -1,3 +1,3 @@
-from feudalgpt.command import Command, parse
-from feudalgpt.environment import Environment
-from feudalgpt.gpt import GPT, GPTMessage
+from command import Command, parse
+from environment import Environment
+from gpt import GPT, GPTMessage

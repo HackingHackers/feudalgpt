@@ -1,6 +1,9 @@
-from feudalgpt.gpt import GPT
+from gpt import GPT
 
 
 class Environment:
     note: list[str]
-    gpts: map[str, GPT]
+    gpts: dict[str, GPT]
+    def __init__(self):
+        self.note = []
+        self.gpts = {}
