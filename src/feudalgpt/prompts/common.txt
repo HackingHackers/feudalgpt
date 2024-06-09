@@ -1,0 +1,28 @@
+Suppose that I have a notebook on my computer that can store many lines of text. I wrote a computer program that reads a bunch of texts, detects the "notebook commands" in the text, and executes the commands. There are 3 such commands:
+1. ```
+   $read_text <number>
+   ```
+   reads the text on specific line number
+2. ```
+   $write_text <number>
+   <text>
+   $end write_text
+   ```
+   writes text to specific line number. This command is a multiline command. The texts you want to write are after the line of $write_text and before the line of $end write_text. If you are writing multiple lines with this command, new lines will be appended between the line number in the parameter and the next line.
+3. ```
+   $add_line <number>
+   ```
+   add a new line after the given line number
+4. ```
+   $delete_line <number>
+   ```
+   delete the line on the given line number
+   Where <number> represents a line number and <text> represents the content to write to the line. Left and right angle brackets are not part of the command.
+
+Beside these commands to read from or write to the notebook, you can also use the $tell command to communicate with others.
+$tell <name>
+<text>
+$end tell
+Similar to the $write_text command, $tell is also a multiline command. The text you want to write is after the line of $tell command and before the line of $end tell.
+
+The commands listed here -- "read_text, write_text, add_line, delete_line, tell" -- are all the commands you can use. There are no other commands beyond these or any variations of these commands.

@@ -36,6 +36,30 @@ COMMANDS = {
 class Command:
     action: str
     args: list[str]
+    def execute(self, env: Environment, gpt: GPT):
+        """
+        Executes the command.
+        """
+        if self.action == "read_text":
+            linum = int(self.args[0])
+            gpt.messageQueue.append(GPTMessage("system", env.read_text(linum)))
+        elif self.action == "write_text":
+            linum = int(self.args[0])
+            text = self.args[1]
+            env.write_text(linum, text)
+        elif self.action == "add_line":
+            linum = int(self.args[0])
+            env.add_line(linum)
+        elif self.action == "remove_line":
+            linum = int(self.args[0])
+            env.remove_line(linum)
+        elif self.action == "tell":
+            gpt_name = self.args[0]
+            message = self.args[1]
+            if gpt_name not in env.gpts:
+                gpt.messageQueue.append(GPTMessage("system", f"GPT '{gpt_name}' does not exist."))
+                return
+            env.gpts[gpt_name].messageQueue.append(GPTMessage(gpt.name, message))
 
 def parse(this_gpt: GPT, text: str):
     """
@@ -93,6 +117,15 @@ if __name__ == "__main__":
     This is another line.
     $end write_text
     $remove_line 1
+    $tell gpt2
+    Hello, GPT2!
+    If you can read this, it means the command is working.
+    Please write a message to the notebook to confirm.
+    Type the following command:
+    $write_text 3
+    I can read the message.
+    $end write_text
+    $end tell
     """
     commands = parse(gpt, text)
     for command in commands:
